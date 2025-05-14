@@ -1,4 +1,5 @@
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import java.io.IOException;
 import java.net.URI;
@@ -8,7 +9,7 @@ import java.net.http.HttpResponse;
 
 public class ConsultaConversion {
 
-    Conversion realizaConversion(String divisa1, String divisa2, double cantidad) {
+    double realizaConversion(String divisa1, String divisa2, double cantidad) {
 
         URI direccion = URI.create("https://v6.exchangerate-api.com/v6/6322b498136e8d369f748b9d/pair/"+divisa1+"/"+divisa2+"/"+cantidad);
 
@@ -21,10 +22,12 @@ public class ConsultaConversion {
         try {
             response = client
                     .send(request, HttpResponse.BodyHandlers.ofString());
+
+            JsonObject jsonResponse = new Gson().fromJson(response.body(), JsonObject.class);
+            return jsonResponse.get("conversion_result").getAsDouble();
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
 
-        return new Gson().fromJson(response.body(), Conversion.class);
     }
 }
