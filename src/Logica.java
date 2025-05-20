@@ -1,112 +1,57 @@
 import java.util.Scanner;
 
 public class Logica {
+    int opcionUsuario;
+    Operacion operacion = new Operacion();
+    Menu nuevoMenu = new Menu();
+    Scanner input = new Scanner(System.in);
+
     public void logicaPrograma() {
-        Operacion operacion = new Operacion();
-        Menu nuevoMenu = new Menu();
-        nuevoMenu.mostrarMenu();
-        try (Scanner input = new Scanner(System.in)) {
-            int opcionUsuario = input.nextInt();
-            while (opcionUsuario != 7) {
-                switch (opcionUsuario) {
-                    case 1:
-                        System.out.println("Por favor ingresa la cantidad que deseas convertir:");
-                        double cantidad = input.nextDouble();
-                        double resultado = operacion.operacionConversion("USD", "BOB", cantidad);
-                        System.out.println("***********************************************");
-                        System.out.println(cantidad + " Dolares son " + resultado + " Bolivianos");
-                        nuevoMenu.menu2();
-                        int segundaOpcion = input.nextInt();
-                        if (segundaOpcion == 2) {
-                            System.out.println("Gracias por usar el programa");
-                            return;
-                        }else{
-                            nuevoMenu.mostrarMenu2();
-                            opcionUsuario = input.nextInt();
-                        }
-                        break;
-                    case 2:
-                        System.out.println("Por favor ingresa la cantidad que deseas convertir:");
-                        cantidad = input.nextDouble();
-                        resultado = operacion.operacionConversion("BOB", "USD", cantidad);
-                        System.out.println("***********************************************");
-                        System.out.println(cantidad + " Dolares son " + resultado + " Bolivianos");
-                        nuevoMenu.menu2();
-                        segundaOpcion = input.nextInt();
-                        if (segundaOpcion == 2) {
-                            System.out.println("Gracias por usar el programa");
-                            return;
-                        }else{
-                            nuevoMenu.mostrarMenu2();
-                            opcionUsuario = input.nextInt();
-                        }
-                        break;
-                    case 3:
-                        System.out.println("Por favor ingresa la cantidad que deseas convertir:");
-                        cantidad = input.nextDouble();
-                        resultado = operacion.operacionConversion("USD", "ARS", cantidad);
-                        System.out.println("***********************************************");
-                        System.out.println(cantidad + " Dolares son " + resultado + " Pesos Argentinos");
-                        nuevoMenu.menu2();
-                        segundaOpcion = input.nextInt();
-                        if (segundaOpcion == 2) {
-                            System.out.println("Gracias por usar el programa");
-                            return;
-                        }else{
-                            nuevoMenu.mostrarMenu2();
-                            opcionUsuario = input.nextInt();
-                        }
-                        break;
-                    case 4:
-                        System.out.println("Por favor ingresa la cantidad que deseas convertir:");
-                        cantidad = input.nextDouble();
-                        resultado = operacion.operacionConversion("ARS", "USD", cantidad);
-                        System.out.println("***********************************************");
-                        System.out.println(cantidad + " Pesos Argentino son " + resultado + " Dólares");
-                        nuevoMenu.menu2();
-                        segundaOpcion = input.nextInt();
-                        if (segundaOpcion == 2) {
-                            System.out.println("Gracias por usar el programa");
-                            return;
-                        }else{
-                            nuevoMenu.mostrarMenu2();
-                            opcionUsuario = input.nextInt();
-                        }
-                        break;
-                    case 5:
-                        System.out.println("Por favor ingresa la cantidad que deseas convertir:");
-                        cantidad = input.nextDouble();
-                        resultado = operacion.operacionConversion("USD", "BRL", cantidad);
-                        System.out.println("***********************************************");
-                        System.out.println(cantidad + " Dolares son " + resultado + " Reales Brasileros");
-                        nuevoMenu.menu2();
-                        segundaOpcion = input.nextInt();
-                        if (segundaOpcion == 2) {
-                            System.out.println("Gracias por usar el programa");
-                            return;
-                        }else{
-                            nuevoMenu.mostrarMenu2();
-                            opcionUsuario = input.nextInt();
-                        }
-                        break;
-                    case 6:
-                        System.out.println("Por favor ingresa la cantidad que deseas convertir:");
-                        cantidad = input.nextDouble();
-                        resultado = operacion.operacionConversion("BRL", "USD", cantidad);
-                        System.out.println("***********************************************");
-                        System.out.println(cantidad + " Reales Brasileros son " + resultado + " Dólares");
-                        nuevoMenu.menu2();
-                        segundaOpcion = input.nextInt();
-                        if (segundaOpcion == 2) {
-                            System.out.println("Gracias por usar el programa");
-                            return;
-                        }else{
-                            nuevoMenu.mostrarMenu2();
-                            opcionUsuario = input.nextInt();
-                        }
-                        break;
-                }
+
+        do {
+            nuevoMenu.mostrarMenu();
+            opcionUsuario = input.nextInt();
+            switch (opcionUsuario) {
+                case 1:
+                    ejecutarConversion("USD", "BOB");
+                    break;
+                case 2:
+                    ejecutarConversion("BOB", "USD");
+                    break;
+                case 3:
+                    ejecutarConversion("USD", "ARS");
+                    break;
+                case 4:
+                    ejecutarConversion("ARS", "USD");
+                    break;
+                case 5:
+                    ejecutarConversion("USD", "BRL");
+                    break;
+                case 6:
+                    ejecutarConversion("BRL", "USD");
+                    break;
             }
+        } while (opcionUsuario != 7);
+    }
+
+    public void ejecutarConversion(String divisa1, String divisa2) {
+        double cantidad;
+        System.out.println("Por favor ingresa la cantidad que deseas convertir:");
+        cantidad = input.nextDouble();
+        double resultado = operacion.operacionConversion(divisa1, divisa2, cantidad);
+        System.out.println("***********************************************");
+        System.out.println(cantidad + " " + divisa1 + " son " + resultado + " " + divisa2);
+        nuevoMenu.menu2();
+        int segundaOpcion = input.nextInt();
+        if (segundaOpcion == 2) {
+            opcionUsuario = 7;
+            System.out.println("Gracias por usar el programa!");
         }
     }
 }
+
+
+
+
+
+
